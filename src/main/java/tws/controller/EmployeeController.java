@@ -2,11 +2,7 @@ package tws.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tws.entity.Employee;
 import tws.repository.EmployeeMapper;
 
@@ -21,9 +17,29 @@ public class EmployeeController {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    @GetMapping("")
-    public ResponseEntity<List<Employee>> getAll() {
-        return ResponseEntity.ok(employeeMapper.selectAll());
+    @GetMapping()
+    public ResponseEntity<List<Employee>> queryEmployees (@RequestParam(required = false) String id) {
+        List<Employee> list = employeeMapper.selectSome(id);
+        return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
+        employee.setId(UUID.randomUUID().toString());
+        employeeMapper.addEmploy(employee);
+        return ResponseEntity.created(URI.create(URI.create("/employees")+employee.getId())).build();
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Employee> uodateEmployee(@RequestBody Employee employee) {
+        employeeMapper.updateOne(employee);
+        return ResponseEntity.ok(employee);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<String> deleteEmployee(@RequestParam String id) {
+        employeeMapper.deleteOne(id);
+        return ResponseEntity.ok(id);
     }
 
 }
