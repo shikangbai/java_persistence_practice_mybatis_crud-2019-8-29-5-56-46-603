@@ -16,6 +16,11 @@
               id = #{id}
           </where>
         </if>
+        <if test="name != null">
+            <where>
+                name like %#{name}%
+            </where>
+        </if>
     </select>
 
     <update id="updateOne" parameterType="tws.entity.Employee">
@@ -39,4 +44,10 @@
             id = #{id}
         </where>
     </delete>
+
+    <select id="selectWithPage" parameterType="java.lang.Integer" resultType="tws.entity.Employee">
+        select * from employee
+        ORDER BY name
+        OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY;
+    </select>
 </mapper>
