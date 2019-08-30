@@ -3,6 +3,7 @@ package tws.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tws.dto.EmployeeDto;
 import tws.entity.Employee;
 import tws.repository.EmployeeMapper;
 import tws.service.EmployeeService;
@@ -56,11 +57,10 @@ public class EmployeeController {
         List<Employee> list = employeeService.selectWithPage(page,pageSize);
         return ResponseEntity.ok(list);
     }
-    
+
     @GetMapping("/name")
     public ResponseEntity<Employee> queryEmployees (@RequestParam String name) {
         Employee employee = employeeService.select(name);
         return ResponseEntity.ok(employee);
     }
-
 }

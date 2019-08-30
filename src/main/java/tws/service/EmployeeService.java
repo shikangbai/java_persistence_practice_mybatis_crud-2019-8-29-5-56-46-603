@@ -2,8 +2,7 @@ package tws.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import tws.DTO.EmployeeDto;
+import tws.dto.EmployeeDto;
 import tws.entity.Employee;
 import tws.repository.EmployeeMapper;
 
@@ -31,7 +30,7 @@ public class EmployeeService {
     public List<Employee> selectWithPage(Integer page, Integer pageSize) {
         return  employeeMapper.selectWithPage((page - 1)*pageSize,pageSize);
     }
-    
+
     public Employee select(String name) {
         return employeeMapper.select(name);
     }

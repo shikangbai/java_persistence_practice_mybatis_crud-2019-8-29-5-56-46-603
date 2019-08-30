@@ -1,4 +1,4 @@
-package tws.DTO;
+package tws.dto;
 
 public class EmployeeDto {
     private String id;
