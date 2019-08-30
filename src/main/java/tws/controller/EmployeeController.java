@@ -56,5 +56,11 @@ public class EmployeeController {
         List<Employee> list = employeeService.selectWithPage(page,pageSize);
         return ResponseEntity.ok(list);
     }
+    
+    @GetMapping("/name")
+    public ResponseEntity<Employee> queryEmployees (@RequestParam String name) {
+        Employee employee = employeeService.select(name);
+        return ResponseEntity.ok(employee);
+    }
 
 }

@@ -31,4 +31,8 @@ public class EmployeeService {
     public List<Employee> selectWithPage(Integer page, Integer pageSize) {
         return  employeeMapper.selectWithPage((page - 1)*pageSize,pageSize);
     }
+    
+    public Employee select(String name) {
+        return employeeMapper.select(name);
+    }
 }
